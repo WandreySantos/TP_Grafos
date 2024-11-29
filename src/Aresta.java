@@ -24,6 +24,17 @@ public class Aresta {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Aresta aresta = (Aresta) obj;
+        
+        // Comparando vértices de origem e destino
+        return (origem.equals(aresta.origem) && destino.equals(aresta.destino)) ||
+               (origem.equals(aresta.destino) && destino.equals(aresta.origem));  // Para grafos não direcionados
+    } 
+
+    @Override
     public String toString() {
         return origem + " -> " + destino + " (peso: " + peso + ")";
     }
