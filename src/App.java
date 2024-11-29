@@ -93,6 +93,24 @@ public class App {
         }
     }
     
+    public static int[][] crirarMatrizComGrafo(Grafo grafo) {
+        List<Vertice> vertices = grafo.getVertices();
+        int tamanho = vertices.size();
+        int[][] matrizAdj = new int[tamanho][tamanho];
+
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                matrizAdj[i][j] = 0;
+            }
+        }
+        for (Aresta aresta : grafo.getArestas()) {
+            int origem = vertices.indexOf(aresta.getOrigem());
+            int destino = vertices.indexOf(aresta.getDestino());
+            matrizAdj[origem][destino] = 1;
+            matrizAdj[destino][origem] = 1;
+        }
+        return matrizAdj;
+    }
     public static Grafo criarGrafoComMatriz(int[][] matrizAdj, Grafo grafo) {
         int tamanho = matrizAdj.length;
 
@@ -152,10 +170,13 @@ public class App {
                     ponderarArestas(grafo,scan);
                     break;
                 case 3:
-
+                    
                     break;
 
                 case 9:
+                    matrizAdj = crirarMatrizComGrafo(grafo);
+                    System.out.print(grafo.toString());
+                    mostrarMatrizAdj(matrizAdj);
                     break;
                 case 0:
                     saida = false;

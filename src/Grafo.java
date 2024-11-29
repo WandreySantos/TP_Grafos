@@ -48,4 +48,26 @@ public class Grafo {
     public List<Aresta> getArestas() {
         return arestas;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vértices:\n");
+        for (Vertice vertice : vertices) {
+            sb.append(vertice.getNome()).append("\n");
+        }
+        sb.append("\nArestas:\n");
+        for (Aresta aresta : arestas) {
+            sb.append(aresta.getOrigem().getNome())
+            .append(" -> ")
+            .append(aresta.getDestino().getNome());
+
+            if (aresta.getPeso() != 0) {
+                sb.append(" [Peso: ").append(aresta.getPeso()).append("]");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
 }
