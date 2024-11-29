@@ -79,7 +79,6 @@ public class Grafo {
         Aresta aresta = new Aresta(origem, destino, nome);
         arestas.add(aresta);
         System.out.println("Aresta " + origem + " -> " + destino + " inserida.");
-        System.out.println(arestas);
     }
 
     public Grafo removerAresta(Vertice origem, Vertice destino) {

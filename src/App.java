@@ -1,6 +1,26 @@
 import java.util.List;
 import java.util.Scanner;
 
+/*
+ Criação de um grafo com X vértices (o número de vértices deve ser inserido pelo usuário).
+Inserção e remoção de arestas. X
+Ponderação e rotulação de vértices. X
+Ponderação e rotulação de arestas. X
+--------------------------------
+Adjacência entre vértices. ?
+Vizinhança do vértice. ?
+Grau do vértice. ?
+Grafo completo. ?
+Grafo regular.  ?
+Grafo conexo. ?
+Grafo acíclico. ?
+Grafo euleriano. ?
+Busca em profundidade. ?
+Busca em largura. ?
+Calcular a menor distância de uma origem para todos os outros vértices (Usar Dijkstra). ?
+Calcular a menor distância de todos para todos (Usar Floyd-Warshall). ?
+ */
+
 public class App {
     public static void menu() {
         System.out.println("\n=== Menu Principal ===");
