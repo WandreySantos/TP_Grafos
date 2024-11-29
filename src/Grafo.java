@@ -20,13 +20,15 @@ public class Grafo {
     }
 
     public void inserirAresta(Vertice origem, Vertice destino) {
+        String nome = origem.getNome()+"-> "+destino.getNome();
         for (Aresta aresta : arestas) {
             if (aresta.getOrigem().equals(origem) && aresta.getDestino().equals(destino)) {
                 System.out.println("Aresta " + origem + " -> " + destino + " já existe.");
                 return;
             }
         }
-        Aresta aresta = new Aresta(origem, destino);
+
+        Aresta aresta = new Aresta(origem, destino, nome);
         arestas.add(aresta);
         System.out.println("Aresta " + origem + " -> " + destino + " inserida.");
     }

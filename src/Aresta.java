@@ -2,15 +2,22 @@ public class Aresta {
     private Vertice origem;
     private Vertice destino;
     private int peso;
+    private String nome;
 
     public Aresta(Vertice origem, Vertice destino){
         this.origem=origem;
         this.destino=destino;
     }
-    public Aresta(Vertice origem, Vertice destino, int peso){
+    public Aresta(Vertice origem, Vertice destino, String nome){
+        this.origem=origem;
+        this.destino=destino;
+        this.nome=nome;
+    }
+    public Aresta(Vertice origem, Vertice destino, int peso, String nome){
         this.origem=origem;
         this.destino=destino;
         this.peso =peso;
+        this.nome=nome;
     }
 
     public Vertice getOrigem() {
@@ -22,6 +29,16 @@ public class Aresta {
     public int getPeso() {
         return peso;
     }
+    public String getNome(){
+        return nome;
+    }
+    public void setPeso(int peso) {
+         this.peso=peso;
+    }
+    public void setNome(String nome) {
+        this.nome=nome;
+   }
+
 
     @Override
     public boolean equals(Object obj) {
