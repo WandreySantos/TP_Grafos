@@ -73,36 +73,36 @@ public class App {
                 break;
 
             case 4: // Grafo completo
-                // if (grafo.isCompleto()) {
-                // System.out.println("O grafo é completo.");
-                // } else {
-                // System.out.println("O grafo não é completo.");
-                // }
-                // break;
+               if (funcoes.isCompleto(grafo.getMatrizAdj())) {
+                System.out.println("O grafo é completo.");
+            } else {
+                System.out.println("O grafo não é completo.");
+            }
+            break;
 
             case 5: // Grafo regular
-                // if (grafo.isRegular()) {
-                // System.out.println("O grafo é regular.");
-                // } else {
-                // System.out.println("O grafo não é regular.");
-                // }
-                break;
+                if (funcoes.isRegular(grafo.getMatrizAdj())) {
+                System.out.println("O grafo é regular.");
+            } else {
+                System.out.println("O grafo não é regular.");
+            }
+            break;
 
             case 6: // Grafo conexo
-                // if (grafo.isConexo()) {
-                // System.out.println("O grafo é conexo.");
-                // } else {
-                // System.out.println("O grafo não é conexo.");
-                // }
-                break;
+                if (funcoes.isConexo(grafo.getMatrizAdj())) {
+                System.out.println("O grafo é conexo.");
+            } else {
+                System.out.println("O grafo não é conexo.");
+            }
+            break;
 
             case 7: // Grafo acíclico
-                // if (grafo.isAciclico()) {
-                // System.out.println("O grafo é acíclico.");
-                // } else {
-                // System.out.println("O grafo não é acíclico.");
-                // }
-                break;
+               if (funcoes.isAciclico(grafo.getMatrizAdj())) {
+                System.out.println("O grafo é acíclico.");
+            } else {
+                System.out.println("O grafo não é acíclico.");
+            }
+            break;
 
             case 8: // Grafo euleriano
                 // if (grafo.isEuleriano()) {
