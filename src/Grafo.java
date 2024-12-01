@@ -27,7 +27,7 @@ public class Grafo {
     private void preencherMatriz() {
         System.out.println("Preencha a matriz de adjacência (0 para sem aresta, 1 para com aresta):");
         for (int i = 0; i < tamanho; i++) {
-            for (int j = i + 1; j < tamanho; j++) { 
+            for (int j = i + 1; j < tamanho; j++) {
                 int valor = -1;
                 while (valor != 0 && valor != 1) {
                     System.out.print("Matriz[" + i + "][" + j + "]: ");
@@ -137,6 +137,7 @@ public class Grafo {
             System.out.println();
         }
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -159,6 +160,21 @@ public class Grafo {
         }
         return sb.toString();
     }
-    
 
+    public Boolean isAdjacente(int v1, int v2) {
+
+        return this.matrizAdj[v1][v2] == 1;
+    }
+
+    public void getVizinhos(int v) {
+
+        List<Integer> vizinhos = new ArrayList<>();
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+            if (this.matrizAdj[v][i] == 1) {
+                vizinhos.add(i);
+            }
+        }
+
+        System.out.println("Vizinhos do vértice " + v + ": " + vizinhos);
+    }
 }

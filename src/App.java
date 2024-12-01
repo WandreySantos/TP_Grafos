@@ -27,13 +27,13 @@ public class App {
         System.out.println("1 - Arestas");
         System.out.println("2 - Ponderar arestas ");
         System.out.println("3 - Verificações simples");
-        System.out.println("4 - Eplicar algortimos");
+        System.out.println("4 - Aplicar algoritmos");
         System.out.println("9 - Ver grafo");
         System.out.println("0 - Sair");
         System.out.println("==================");
     }
 
-    public static void functions(Grafo grafo){
+    public static void functions(Grafo grafo) {
         Scanner scan = new Scanner(System.in);
         System.out.println("1 - Adjacencia");
         System.out.println("2 - Vizinhança do vertice");
@@ -62,55 +62,54 @@ public class App {
             case 2: // Vizinhança
                 System.out.print("Informe o índice do vértice: ");
                 int v = scan.nextInt();
-                List<Vertice> vizinhos = grafo.getVizinhos(v);
-                System.out.println("Vizinhos do vértice " + v + ": " + vizinhos);
+                grafo.getVizinhos(v);
                 break;
 
             case 3: // Grau
-                System.out.print("Informe o índice do vértice: ");
-                int vertice = scan.nextInt();
-                int grau = grafo.getGrau(vertice);
-                System.out.println("Grau do vértice " + vertice + ": " + grau);
+                // System.out.print("Informe o índice do vértice: ");
+                // int vertice = scan.nextInt();
+                // int grau = grafo.getGrau(vertice);
+                // System.out.println("Grau do vértice " + vertice + ": " + grau);
                 break;
 
             case 4: // Grafo completo
-                if (grafo.isCompleto()) {
-                    System.out.println("O grafo é completo.");
-                } else {
-                    System.out.println("O grafo não é completo.");
-                }
-                break;
+                // if (grafo.isCompleto()) {
+                // System.out.println("O grafo é completo.");
+                // } else {
+                // System.out.println("O grafo não é completo.");
+                // }
+                // break;
 
             case 5: // Grafo regular
-                if (grafo.isRegular()) {
-                    System.out.println("O grafo é regular.");
-                } else {
-                    System.out.println("O grafo não é regular.");
-                }
+                // if (grafo.isRegular()) {
+                // System.out.println("O grafo é regular.");
+                // } else {
+                // System.out.println("O grafo não é regular.");
+                // }
                 break;
 
             case 6: // Grafo conexo
-                if (grafo.isConexo()) {
-                    System.out.println("O grafo é conexo.");
-                } else {
-                    System.out.println("O grafo não é conexo.");
-                }
+                // if (grafo.isConexo()) {
+                // System.out.println("O grafo é conexo.");
+                // } else {
+                // System.out.println("O grafo não é conexo.");
+                // }
                 break;
 
             case 7: // Grafo acíclico
-                if (grafo.isAciclico()) {
-                    System.out.println("O grafo é acíclico.");
-                } else {
-                    System.out.println("O grafo não é acíclico.");
-                }
+                // if (grafo.isAciclico()) {
+                // System.out.println("O grafo é acíclico.");
+                // } else {
+                // System.out.println("O grafo não é acíclico.");
+                // }
                 break;
 
             case 8: // Grafo euleriano
-                if (grafo.isEuleriano()) {
-                    System.out.println("O grafo é euleriano.");
-                } else {
-                    System.out.println("O grafo não é euleriano.");
-                }
+                // if (grafo.isEuleriano()) {
+                // System.out.println("O grafo é euleriano.");
+                // } else {
+                // System.out.println("O grafo não é euleriano.");
+                // }
                 break;
 
             case 0: // Voltar
@@ -122,8 +121,8 @@ public class App {
                 break;
         }
     }
-    
-    public static void algoritimos(Grafo grafo){
+
+    public static void algoritmos(Grafo grafo) {
         Scanner scan = new Scanner(System.in);
         System.out.println("\n=== Algoritmos em Grafos ===");
         System.out.println("1 - Busca em profundidade (DFS)");
@@ -141,36 +140,36 @@ public class App {
                 System.out.println("Busca em profundidade a partir do vértice " + origemDFS + ":");
                 // grafo.buscaProfundidade(origemDFS);
                 break;
-    
+
             case 2: // Busca em largura (BFS)
                 System.out.print("Informe o índice do vértice de origem: ");
                 int origemBFS = scan.nextInt();
                 System.out.println("Busca em largura a partir do vértice " + origemBFS + ":");
                 // grafo.buscaLargura(origemBFS);
                 break;
-    
+
             case 3: // Dijkstra
                 System.out.print("Informe o índice do vértice de origem: ");
                 int origemDijkstra = scan.nextInt();
                 System.out.println("Menores distâncias a partir do vértice " + origemDijkstra + " usando Dijkstra:");
                 // grafo.dijkstra(origemDijkstra);
                 break;
-    
+
             case 4: // Floyd-Warshall
                 System.out.println("Menores distâncias entre todos os vértices usando Floyd-Warshall:");
                 // grafo.floydWarshall();
                 break;
-    
+
             case 0: // Voltar ao menu principal
                 System.out.println("Voltando ao menu principal...");
                 break;
-    
+
             default:
                 System.out.println("Opção inválida. Tente novamente.");
                 break;
         }
     }
-    
+
     public static void addRemov(Grafo grafo, Scanner scan) {
         System.out.println("1- Adicionar\n2- Remover");
         int op = scan.nextInt();
@@ -253,7 +252,7 @@ public class App {
                     functions(grafo);
                     break;
                 case 4:
-                    algoritimos(grafo);
+                    algoritmos(grafo);
                     break;
                 case 9:
                     System.out.println(grafo.toString());
