@@ -165,7 +165,9 @@ public class Grafo {
 
         return this.matrizAdj[v1][v2] == 1;
     }
-
+    public  int[][] getMatrizAdj(){
+        return matrizAdj;
+    }
     public void getVizinhos(int v) {
 
         List<Integer> vizinhos = new ArrayList<>();

@@ -32,23 +32,29 @@ public class App {
         System.out.println("0 - Sair");
         System.out.println("==================");
     }
-
-    public static void functions(Grafo grafo) {
-        Scanner scan = new Scanner(System.in);
+    public static void submenu() {
         System.out.println("1 - Adjacencia");
         System.out.println("2 - Vizinhança do vertice");
         System.out.println("3 - Grau do vertice ");
         System.out.println("4 - Grafo completo");
         System.out.println("5 - Grafo regular");
         System.out.println("6 - Grafo conexo");
-        System.out.println("7 - Grafo completo");
-        System.out.println("8 - Grafo aciclico");
-        System.out.println("9 - Grafo euleriano");
+        System.out.println("7 - Grafo aciclico");
+        System.out.println("8 - Grafo euleriano");
         System.out.println("0 - Sair");
-        int opção = scan.nextInt();
+    }
+    public static void functions(Grafo grafo) {
+        
+        Scanner scan = new Scanner(System.in);
+        Funções funcoes = new Funções();
 
-        switch (opção) {
-            case 1: // Adjacência
+        boolean opção  =true;
+        while (opção) {
+            submenu();
+            int op = scan.nextInt();
+            System.out.println("==================");
+            switch (op) {
+                case 1: // Adjacência
                 System.out.print("Informe os índices dos dois vértices (ex: 0 1): ");
                 int v1 = scan.nextInt();
                 int v2 = scan.nextInt();
@@ -58,67 +64,67 @@ public class App {
                     System.out.println("Os vértices não são adjacentes.");
                 }
                 break;
-
-            case 2: // Vizinhança
+                case 2: // Vizinhança
                 System.out.print("Informe o índice do vértice: ");
                 int v = scan.nextInt();
                 grafo.getVizinhos(v);
                 break;
 
-            case 3: // Grau
-                // System.out.print("Informe o índice do vértice: ");
-                // int vertice = scan.nextInt();
-                // int grau = grafo.getGrau(vertice);
-                // System.out.println("Grau do vértice " + vertice + ": " + grau);
-                break;
-
-            case 4: // Grafo completo
-                // if (grafo.isCompleto()) {
-                // System.out.println("O grafo é completo.");
-                // } else {
-                // System.out.println("O grafo não é completo.");
-                // }
-                // break;
-
-            case 5: // Grafo regular
-                // if (grafo.isRegular()) {
-                // System.out.println("O grafo é regular.");
-                // } else {
-                // System.out.println("O grafo não é regular.");
-                // }
-                break;
-
-            case 6: // Grafo conexo
-                // if (grafo.isConexo()) {
-                // System.out.println("O grafo é conexo.");
-                // } else {
-                // System.out.println("O grafo não é conexo.");
-                // }
-                break;
-
-            case 7: // Grafo acíclico
-                // if (grafo.isAciclico()) {
-                // System.out.println("O grafo é acíclico.");
-                // } else {
-                // System.out.println("O grafo não é acíclico.");
-                // }
-                break;
-
-            case 8: // Grafo euleriano
-                // if (grafo.isEuleriano()) {
-                // System.out.println("O grafo é euleriano.");
-                // } else {
-                // System.out.println("O grafo não é euleriano.");
-                // }
-                break;
-
-            case 0: // Voltar
-                System.out.println("Voltando ao menu principal...");
-                break;
-
-            default:
-                System.out.println("Opção inválida. Tente novamente.");
-                break;
+                case 3: // Grau
+                    // System.out.print("Informe o índice do vértice: ");
+                    // int vertice = scan.nextInt();
+                    // int grau = grafo.getGrau(vertice);
+                    // System.out.println("Grau do vértice " + vertice + ": " + grau);
+                    break;
+    
+                case 4: // Grafo completo
+                    if (funcoes.isCompleto(grafo.getMatrizAdj())) {
+                     System.out.println("O grafo é completo.");
+                 } else {
+                     System.out.println("O grafo não é completo.");
+                 }
+                 break;
+     
+                case 5: // Grafo regular
+                     if (funcoes.isRegular(grafo.getMatrizAdj())) {
+                     System.out.println("O grafo é regular.");
+                 } else {
+                     System.out.println("O grafo não é regular.");
+                 }
+                 break;
+     
+                case 6: // Grafo conexo
+                     if (funcoes.isConexo(grafo.getMatrizAdj())) {
+                     System.out.println("O grafo é conexo.");
+                 } else {
+                     System.out.println("O grafo não é conexo.");
+                 }
+                 break;
+     
+                case 7: // Grafo acíclico
+                    if (funcoes.isAciclico(grafo.getMatrizAdj())) {
+                     System.out.println("O grafo é acíclico.");
+                 } else {
+                     System.out.println("O grafo não é acíclico.");
+                 }
+                 break;
+    
+                case 8: // Grafo euleriano
+                    // if (grafo.isEuleriano()) {
+                    // System.out.println("O grafo é euleriano.");
+                    // } else {
+                    // System.out.println("O grafo não é euleriano.");
+                    // }
+                    break;
+                case 0: // Voltar
+                    System.out.println("Voltando ao menu principal...");
+                    opção =false;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+                }
+                System.out.println("==================");
         }
     }
 
