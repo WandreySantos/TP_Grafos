@@ -18,6 +18,10 @@ public class Vertice {
         return arestas;
     }
 
+    public int getGrau(Vertice vertice){
+        return arestas.size();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)

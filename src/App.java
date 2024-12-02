@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class App {
@@ -55,10 +56,12 @@ public class App {
                 break;
 
                 case 3: // Grau
-                    // System.out.print("Informe o índice do vértice: ");
-                    // int vertice = scan.nextInt();
-                    // int grau = grafo.getGrau(vertice);
-                    // System.out.println("Grau do vértice " + vertice + ": " + grau);
+                    System.out.print("Informe o índice do vértice: ");
+                    int index = scan.nextInt();
+                    System.out.println("\n"+grafo.getvertices());
+                    Vertice vertice = grafo.getVertices().get(index);
+                    int grau = grafo.getGrau(vertice);
+                    System.out.println("Grau do vértice " + vertice + ": " + grau);
                     break;
     
                 case 4: // Grafo completo
@@ -146,11 +149,24 @@ public class App {
                  */
             case 3: // Dijkstra
                 System.out.print("Informe o índice do vértice de origem: ");
-                grafo.getvertices();
-                Vertice origem;
-                System.out.println("Menores distâncias a partir do vértice "  + " usando Dijkstra:");
-                // funcoes.dijkstra(grafo.getVertices());
+                System.out.println(grafo.getvertices()); // Exibe a lista de vértices para o usuário, se necessário.
+
+                // Lê o índice do vértice de origem4
+
+                int indiceOrigem = scann.nextInt();
+                Vertice origem = grafo.getVertices().get(indiceOrigem); // Obtém o vértice pelo índice
+                
+                System.out.println("Menores distâncias a partir do vértice " + origem.getNome() + " usando Dijkstra:");
+                
+                // Executa o algoritmo de Dijkstra
+                Map<Vertice, Integer> distancias = funcoes.dijkstra(grafo.getVertices(), origem);
+
+                // Exibe as menores distâncias
+                for (Map.Entry<Vertice, Integer> entrada : distancias.entrySet()) {
+                    System.out.println("Para " + entrada.getKey().getNome() + ": " + entrada.getValue());
+                }
                 break;
+
 
             case 4: // Floyd-Warshall
                 System.out.println("Menores distâncias entre todos os vértices usando Floyd-Warshall:");

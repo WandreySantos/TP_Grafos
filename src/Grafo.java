@@ -202,6 +202,10 @@ public class Grafo {
         return matrizAdj;
     }
     
+    public int getGrau(Vertice vertice){
+        return vertice.getArestas().size();
+    }
+    
     public void getVizinhos(int v) {
         System.out.println("==================");
         Vertice x = vertices.get(v);
