@@ -13,6 +13,7 @@ public class App {
         System.out.println("0 - Sair");
         System.out.println("==================");
     }
+
     public static void submenu() {
         System.out.println("1 - Adjacencia");
         System.out.println("2 - Vizinhança do vertice");
@@ -24,78 +25,77 @@ public class App {
         System.out.println("8 - Grafo euleriano");
         System.out.println("0 - Sair");
     }
-    
-    
+
     public static void functions(Grafo grafo) {
-        
+
         Funções funcoes = new Funções();
         Scanner scan = new Scanner(System.in);
 
-        boolean opção  =true;
+        boolean opção = true;
         while (opção) {
             submenu();
             int op = scan.nextInt();
             System.out.println("==================");
             switch (op) {
                 case 1: // Adjacência
-                System.out.print("Informe os índices dos dois vértices (ex: 0 1): ");
-                int v1 = scan.nextInt();
-                int v2 = scan.nextInt();
-                if (grafo.isAdjacente(v1, v2)) {
-                    System.out.println("Os vértices são adjacentes.");
-                } else {
-                    System.out.println("Os vértices não são adjacentes.");
-                }
-                break;
+                    System.out.print("Informe os índices dos dois vértices (ex: 0 1): ");
+                    int v1 = scan.nextInt();
+                    int v2 = scan.nextInt();
+                    if (grafo.isAdjacente(v1, v2)) {
+                        System.out.println("Os vértices são adjacentes.");
+                    } else {
+                        System.out.println("Os vértices não são adjacentes.");
+                    }
+                    break;
                 case 2: // Vizinhança
-                System.out.println(grafo.getvertices());
-                System.out.print("Informe o índice do vértice: ");
-                int v = scan.nextInt();
-                System.out.println("Vizinhos:");
-                grafo.getVizinhos(v);
-                break;
+                    System.out.println(grafo.getvertices());
+                    System.out.print("Informe o índice do vértice: ");
+                    int v = scan.nextInt();
+                    System.out.println("Vizinhos:");
+                    grafo.getVizinhos(v);
+                    break;
 
                 case 3: // Grau
                     System.out.print("Informe o índice do vértice: ");
                     int index = scan.nextInt();
-                    System.out.println("\n"+grafo.getvertices());
+                    System.out.println("\n" + grafo.getvertices());
                     Vertice vertice = grafo.getVertices().get(index);
                     int grau = grafo.getGrau(vertice);
                     System.out.println("Grau do vértice " + vertice + ": " + grau);
                     break;
-    
+
                 case 4: // Grafo completo
                     if (funcoes.isCompleto(grafo.getMatrizAdj())) {
-                     System.out.println("O grafo é completo.");
-                 } else {
-                     System.out.println("O grafo não é completo.");
-                 }
-                 break;
-     
+                        System.out.println("O grafo é completo.");
+                    } else {
+                        System.out.println("O grafo não é completo.");
+                    }
+                    break;
+
                 case 5: // Grafo regular
-                     if (funcoes.isRegular(grafo.getMatrizAdj())) {
-                     System.out.println("O grafo é regular.");
-                 } else {
-                     System.out.println("O grafo não é regular.");
-                 }
-                 break;
-     
+                    if (funcoes.isRegular(grafo.getMatrizAdj())) {
+                        System.out.println("O grafo é regular.");
+                    } else {
+                        System.out.println("O grafo não é regular.");
+                    }
+                    break;
+
                 case 6: // Grafo conexo
-                     if (funcoes.isConexo(grafo.getMatrizAdj())) {
-                     System.out.println("O grafo é conexo.");
-                 } else {
-                     System.out.println("O grafo não é conexo.");
-                 }
-                 break;
-     
+                    if (funcoes.isConexo(grafo.getMatrizAdj())) {
+                        System.out.println("O grafo é conexo.");
+                    } else {
+                        System.out.println("O grafo não é conexo.");
+                    }
+                    break;
+
                 case 7: // Grafo acíclico
                     if (funcoes.isAciclico(grafo.getMatrizAdj())) {
-                     System.out.println("O grafo é acíclico.");
-                 } else {
-                     System.out.println("O grafo não é acíclico.");
-                 }
-                 break;
-    
+                        System.out.println("O grafo é acíclico.");
+                    } else {
+                        System.out.println("O grafo não é acíclico.");
+                    }
+                    break;
+
                 case 8: // Grafo euleriano
                     // if (grafo.isEuleriano()) {
                     // System.out.println("O grafo é euleriano.");
@@ -105,13 +105,13 @@ public class App {
                     break;
                 case 0: // Voltar
                     System.out.println("Voltando ao menu principal...");
-                    opção =false;
+                    opção = false;
                     break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
                     break;
-                }
-                System.out.println("==================");
+            }
+            System.out.println("==================");
         }
     }
 
@@ -134,7 +134,7 @@ public class App {
                 System.out.print("Informe o índice do vértice de origem: ");
                 int origemDFS = scann.nextInt();
                 System.out.println("Busca em profundidade a partir do vértice " + origemDFS + ":");
-                // funcoes.buscaProfundidade();
+                grafo.buscaProfundidade(origemDFS);
                 break;
 
             case 2: // Busca em largura (BFS)
@@ -144,9 +144,9 @@ public class App {
                 // funcoes.buscaLargura();
                 break;
 
-                /*
-                 * oq era pra ser passado?nao consegui entender 
-                 */
+            /*
+             * oq era pra ser passado?nao consegui entender
+             */
             case 3: // Dijkstra
                 System.out.print("Informe o índice do vértice de origem: ");
                 System.out.println(grafo.getvertices()); // Exibe a lista de vértices para o usuário, se necessário.
@@ -155,9 +155,9 @@ public class App {
 
                 int indiceOrigem = scann.nextInt();
                 Vertice origem = grafo.getVertices().get(indiceOrigem); // Obtém o vértice pelo índice
-                
+
                 System.out.println("Menores distâncias a partir do vértice " + origem.getNome() + " usando Dijkstra:");
-                
+
                 // Executa o algoritmo de Dijkstra
                 Map<Vertice, Integer> distancias = funcoes.dijkstra(grafo.getVertices(), origem);
 
@@ -166,7 +166,6 @@ public class App {
                     System.out.println("Para " + entrada.getKey().getNome() + ": " + entrada.getValue());
                 }
                 break;
-
 
             case 4: // Floyd-Warshall
                 System.out.println("Menores distâncias entre todos os vértices usando Floyd-Warshall:");

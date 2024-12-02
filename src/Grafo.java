@@ -8,6 +8,7 @@ public class Grafo {
     public int tamanho;
     private int[][] matrizAdj;
     private boolean ponderado = false;
+    private boolean[] visitado;
 
     Scanner scan = new Scanner(System.in);
 
@@ -73,7 +74,7 @@ public class Grafo {
         for (Aresta aresta : arestas) {
             if (aresta.getOrigem().equals(origem) && aresta.getDestino().equals(destino)) {
                 System.out.println("Aresta " + origem + " -> " + destino + " já existe.");
-                return; 
+                return;
             }
         }
         String nome = origem.getNome() + " -> " + destino.getNome();
@@ -89,14 +90,14 @@ public class Grafo {
         int i = vertices.indexOf(origem);
         int j = vertices.indexOf(destino);
         if (i != -1 && j != -1) {
-            matrizAdj[i][j] = 1; 
-            matrizAdj[j][i] = 1; 
+            matrizAdj[i][j] = 1;
+            matrizAdj[j][i] = 1;
         } else {
             System.out.println("Erro: vértices não encontrados na lista.");
         }
         System.out.println("Aresta " + origem.getNome() + " -> " + destino.getNome() + " inserida.");
     }
-    
+
     public Grafo removerAresta(Vertice origem, Vertice destino) {
         Aresta aresta = new Aresta(origem, destino);
         if (arestas.remove(aresta)) {
@@ -113,9 +114,11 @@ public class Grafo {
     public List<Vertice> getVertices() {
         return vertices;
     }
-    private List <Aresta> getArestasdoVertices(Vertice vertice) {
+
+    private List<Aresta> getArestasdoVertices(Vertice vertice) {
         return vertice.getArestas();
     }
+
     public String getvertices() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < vertices.size(); i++) {
@@ -123,12 +126,15 @@ public class Grafo {
         }
         return sb.toString();
     }
-    public void setPonderado(){
+
+    public void setPonderado() {
         this.ponderado = true;
     }
+
     public List<Aresta> getArestas() {
         return arestas;
     }
+
     public String getarestas() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < arestas.size(); i++) {
@@ -136,7 +142,6 @@ public class Grafo {
         }
         return sb.toString();
     }
-    
 
     public void criarGrafoComMatriz() {
         tamanho = matrizAdj.length;
@@ -198,17 +203,35 @@ public class Grafo {
 
         return this.matrizAdj[v1][v2] == 1;
     }
-    public  int[][] getMatrizAdj(){
+
+    public int[][] getMatrizAdj() {
         return matrizAdj;
     }
-    
-    public int getGrau(Vertice vertice){
+
+    public int getGrau(Vertice vertice) {
         return vertice.getArestas().size();
     }
-    
+
     public void getVizinhos(int v) {
         System.out.println("==================");
         Vertice x = vertices.get(v);
         System.out.println(getArestasdoVertices(x));
+    }
+
+    public void buscaProfundidade(int v) {
+        this.visitado = new boolean[getVertices().size()];
+
+        System.out.println("Iniciando busca em profundidade a partir do vértice " + v);
+        dfs(v);
+    }
+
+    private void dfs(int v) {
+        visitado[v] = true;
+        System.out.println("Visitando vértice " + v);
+        for (int i = 0; i < getVertices().size(); i++) {
+            if (matrizAdj[v][i] == 1 && !visitado[i]) {
+                dfs(i);
+            }
+        }
     }
 }
