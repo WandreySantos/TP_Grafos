@@ -97,7 +97,6 @@ public class Grafo {
         System.out.println("Aresta " + origem.getNome() + " -> " + destino.getNome() + " inserida.");
     }
     
-
     public Grafo removerAresta(Vertice origem, Vertice destino) {
         Aresta aresta = new Aresta(origem, destino);
         if (arestas.remove(aresta)) {
@@ -119,7 +118,7 @@ public class Grafo {
     }
     public String getvertices() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < arestas.size(); i++) {
+        for (int i = 0; i < vertices.size(); i++) {
             sb.append("Índice ").append(i).append(": ").append(vertices.get(i).toString()).append("\n");
         }
         return sb.toString();
@@ -206,8 +205,6 @@ public class Grafo {
     public void getVizinhos(int v) {
         System.out.println("==================");
         Vertice x = vertices.get(v);
-
         System.out.println(getArestasdoVertices(x));
-
     }
 }

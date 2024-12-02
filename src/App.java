@@ -50,6 +50,7 @@ public class App {
                 System.out.println(grafo.getvertices());
                 System.out.print("Informe o índice do vértice: ");
                 int v = scan.nextInt();
+                System.out.println("Vizinhos:");
                 grafo.getVizinhos(v);
                 break;
 
@@ -113,7 +114,7 @@ public class App {
 
     public static void algoritmos(Grafo grafo) {
 
-        Scanner scan = new Scanner(System.in);
+        Scanner scann = new Scanner(System.in);
         Funções funcoes = new Funções();
 
         System.out.println("\n=== Algoritmos em Grafos ===");
@@ -123,19 +124,19 @@ public class App {
         System.out.println("4 - Menor distância entre todos os vértices (Floyd-Warshall)");
         System.out.println("0 - Voltar ao menu principal");
         System.out.print("Escolha uma opção: ");
-        int opção = scan.nextInt();
+        int opção = scann.nextInt();
 
         switch (opção) {
             case 1: // Busca em profundidade (DFS)
                 System.out.print("Informe o índice do vértice de origem: ");
-                int origemDFS = scan.nextInt();
+                int origemDFS = scann.nextInt();
                 System.out.println("Busca em profundidade a partir do vértice " + origemDFS + ":");
-                funcoes.buscaProfundidade();
+                // funcoes.buscaProfundidade();
                 break;
 
             case 2: // Busca em largura (BFS)
                 System.out.print("Informe o índice do vértice de origem: ");
-                int origemBFS = scan.nextInt();
+                int origemBFS = scann.nextInt();
                 System.out.println("Busca em largura a partir do vértice " + origemBFS + ":");
                 // funcoes.buscaLargura();
                 break;
