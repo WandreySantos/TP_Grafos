@@ -95,4 +95,114 @@ public class Funções {
         }
         return true;
     }
+
+    public int[] dijkstra(int[][] matrizAdj, int origem) {
+        int n = matrizAdj.length;
+        int[] dist = new int[n];
+        boolean[] visitados = new boolean[n];
+        
+        for (int i = 0; i < n; i++) {
+            dist[i] = Integer.MAX_VALUE;
+        }
+        dist[origem] = 0;
+
+        for (int count = 0; count < n - 1; count++) {
+            int u = minDist(dist, visitados);
+            visitados[u] = true;
+
+            for (int v = 0; v < n; v++) {
+                if (!visitados[v] && matrizAdj[u][v] != 0 &&
+                    dist[u] != Integer.MAX_VALUE && 
+                    dist[u] + matrizAdj[u][v] < dist[v]) {
+                    dist[v] = dist[u] + matrizAdj[u][v];
+                }
+            }
+        }
+        return dist;
+    }
+
+    private int minDist(int[] dist, boolean[] visitados) {
+        int min = Integer.MAX_VALUE, minIndex = -1;
+
+        for (int v = 0; v < dist.length; v++) {
+            if (!visitados[v] && dist[v] < min) {
+                min = dist[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    public int[][] floydWarshall(int[][] matrizAdj) {
+        int n = matrizAdj.length;
+        int[][] dist = new int[n][n];
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    dist[i][j] = 0;
+                } else if (matrizAdj[i][j] != 0) {
+                    dist[i][j] = matrizAdj[i][j];
+                } else {
+                    dist[i][j] = Integer.MAX_VALUE;
+                }
+            }
+        }
+
+        for (int k = 0; k < n; k++) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (dist[i][k] != Integer.MAX_VALUE && dist[k][j] != Integer.MAX_VALUE &&
+                        dist[i][k] + dist[k][j] < dist[i][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+        return dist;
+    }
+
+    public void bfs(int[][] matrizAdj, int origem) {
+        int n = matrizAdj.length;
+        boolean[] visitados = new boolean[n];
+        Queue<Integer> fila = new LinkedList<>();
+        
+        visitados[origem] = true;
+        fila.add(origem);
+
+        while (!fila.isEmpty()) {
+            int v = fila.poll();
+            System.out.print(v + " ");
+            
+            for (int i = 0; i < n; i++) {
+                if (matrizAdj[v][i] != 0 && !visitados[i]) {
+                    visitados[i] = true;
+                    fila.add(i);
+                }
+            }
+        }
+    }
+
+    public boolean isEuleriano(int[][] matrizAdj) {
+        if (!isConexo(matrizAdj)) {
+            return false;
+        }
+
+        int n = matrizAdj.length;
+        int verticesImpar = 0;
+
+        for (int i = 0; i < n; i++) {
+            int grau = 0;
+            for (int j = 0; j < n; j++) {
+                if (matrizAdj[i][j] != 0) {
+                    grau++;
+                }
+            }
+            if (grau % 2 != 0) {
+                verticesImpar++;
+            }
+        }
+
+        return verticesImpar == 0 || verticesImpar == 2;
+    }
 }
