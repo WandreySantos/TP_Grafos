@@ -1,26 +1,6 @@
 import java.util.List;
 import java.util.Scanner;
 
-/*
- Criação de um grafo com X vértices (o número de vértices deve ser inserido pelo usuário).
-Inserção e remoção de arestas. X
-Ponderação e rotulação de vértices. X
-Ponderação e rotulação de arestas. X
---------------------------------
-Adjacência entre vértices. ?
-Vizinhança do vértice. ?
-Grau do vértice. ?
-Grafo completo. ?
-Grafo regular.  ?
-Grafo conexo. ?
-Grafo acíclico. ?
-Grafo euleriano. ?
-Busca em profundidade. ?
-Busca em largura. ?
-Calcular a menor distância de uma origem para todos os outros vértices (Usar Dijkstra). ?
-Calcular a menor distância de todos para todos (Usar Floyd-Warshall). ?
- */
-
 public class App {
     public static void menu() {
         System.out.println("\n=== Menu Principal ===");
@@ -43,10 +23,12 @@ public class App {
         System.out.println("8 - Grafo euleriano");
         System.out.println("0 - Sair");
     }
+    
+    
     public static void functions(Grafo grafo) {
         
-        Scanner scan = new Scanner(System.in);
         Funções funcoes = new Funções();
+        Scanner scan = new Scanner(System.in);
 
         boolean opção  =true;
         while (opção) {
@@ -65,6 +47,7 @@ public class App {
                 }
                 break;
                 case 2: // Vizinhança
+                System.out.println(grafo.getvertices());
                 System.out.print("Informe o índice do vértice: ");
                 int v = scan.nextInt();
                 grafo.getVizinhos(v);
@@ -129,7 +112,10 @@ public class App {
     }
 
     public static void algoritmos(Grafo grafo) {
+
         Scanner scan = new Scanner(System.in);
+        Funções funcoes = new Funções();
+
         System.out.println("\n=== Algoritmos em Grafos ===");
         System.out.println("1 - Busca em profundidade (DFS)");
         System.out.println("2 - Busca em largura (BFS)");
@@ -144,26 +130,30 @@ public class App {
                 System.out.print("Informe o índice do vértice de origem: ");
                 int origemDFS = scan.nextInt();
                 System.out.println("Busca em profundidade a partir do vértice " + origemDFS + ":");
-                // grafo.buscaProfundidade(origemDFS);
+                funcoes.buscaProfundidade();
                 break;
 
             case 2: // Busca em largura (BFS)
                 System.out.print("Informe o índice do vértice de origem: ");
                 int origemBFS = scan.nextInt();
                 System.out.println("Busca em largura a partir do vértice " + origemBFS + ":");
-                // grafo.buscaLargura(origemBFS);
+                // funcoes.buscaLargura();
                 break;
 
+                /*
+                 * oq era pra ser passado?nao consegui entender 
+                 */
             case 3: // Dijkstra
                 System.out.print("Informe o índice do vértice de origem: ");
-                int origemDijkstra = scan.nextInt();
-                System.out.println("Menores distâncias a partir do vértice " + origemDijkstra + " usando Dijkstra:");
-                // grafo.dijkstra(origemDijkstra);
+                grafo.getvertices();
+                Vertice origem;
+                System.out.println("Menores distâncias a partir do vértice "  + " usando Dijkstra:");
+                // funcoes.dijkstra(grafo.getVertices());
                 break;
 
             case 4: // Floyd-Warshall
                 System.out.println("Menores distâncias entre todos os vértices usando Floyd-Warshall:");
-                // grafo.floydWarshall();
+                // funcoes.floydWarshall();
                 break;
 
             case 0: // Voltar ao menu principal

@@ -1,3 +1,13 @@
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
+
 public class Funções {
   
     public boolean isAciclico(int[][] matrizAdj) {
@@ -96,30 +106,48 @@ public class Funções {
         return true;
     }
 
-    public int[] dijkstra(int[][] matrizAdj, int origem) {
-        int n = matrizAdj.length;
-        int[] dist = new int[n];
-        boolean[] visitados = new boolean[n];
-        
-        for (int i = 0; i < n; i++) {
-            dist[i] = Integer.MAX_VALUE;
-        }
-        dist[origem] = 0;
+public void dijkstra(Vertice origem, List<Vertice> vertices) {
+    // Inicializar estruturas de dados
+    Map<Vertice, Integer> distancias = new HashMap<>();
+    Map<Vertice, Vertice> predecessores = new HashMap<>();
+    Set<Vertice> visitados = new HashSet<>();
+    PriorityQueue<Vertice> filaPrioridade = new PriorityQueue<>(Comparator.comparingInt(distancias::get));
 
-        for (int count = 0; count < n - 1; count++) {
-            int u = minDist(dist, visitados);
-            visitados[u] = true;
+    // Configurar distância inicial
+    for (Vertice vertice : vertices) {
+        distancias.put(vertice, Integer.MAX_VALUE);
+    }
+    distancias.put(origem, 0);
+    filaPrioridade.add(origem);
 
-            for (int v = 0; v < n; v++) {
-                if (!visitados[v] && matrizAdj[u][v] != 0 &&
-                    dist[u] != Integer.MAX_VALUE && 
-                    dist[u] + matrizAdj[u][v] < dist[v]) {
-                    dist[v] = dist[u] + matrizAdj[u][v];
+    // Processar vértices
+    while (!filaPrioridade.isEmpty()) {
+        Vertice atual = filaPrioridade.poll();
+        if (visitados.contains(atual)) continue; // Pular se já visitado
+
+        visitados.add(atual);
+
+        // Verificar vizinhos
+        for (Aresta aresta : atual.getArestas()) {
+            Vertice vizinho = aresta.getDestino();
+            int peso = aresta.getPeso();
+            if (!visitados.contains(vizinho)) {
+                int novaDistancia = distancias.get(atual) + peso;
+                if (novaDistancia < distancias.get(vizinho)) {
+                    distancias.put(vizinho, novaDistancia);
+                    predecessores.put(vizinho, atual);
+                    filaPrioridade.add(vizinho);
                 }
             }
         }
-        return dist;
     }
+    // Exibir resultados
+    System.out.println("Distâncias mínimas a partir do vértice " + origem.getNome() + ":");
+    for (Map.Entry<Vertice, Integer> entry : distancias.entrySet()) {
+        System.out.println("Vértice " + entry.getKey().getNome() + ": " + entry.getValue());
+    }
+}
+
 
     private int minDist(int[] dist, boolean[] visitados) {
         int min = Integer.MAX_VALUE, minIndex = -1;

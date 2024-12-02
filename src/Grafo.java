@@ -6,8 +6,8 @@ public class Grafo {
     private List<Vertice> vertices;
     private List<Aresta> arestas;
     public int tamanho;
-    private boolean direcionado = false;
     private int[][] matrizAdj;
+    private boolean ponderado = false;
 
     Scanner scan = new Scanner(System.in);
 
@@ -45,7 +45,6 @@ public class Grafo {
     }
 
     private void criandoGrafo() {
-        // A matriz de adjacência já foi preenchida pela função `preenchendoMatriz`
         for (int i = 0; i < tamanho; i++) {
             inserirVertice("v" + (i + 1));
         }
@@ -70,16 +69,34 @@ public class Grafo {
     }
 
     public void inserirAresta(Vertice origem, Vertice destino) {
+
         for (Aresta aresta : arestas) {
             if (aresta.getOrigem().equals(origem) && aresta.getDestino().equals(destino)) {
                 System.out.println("Aresta " + origem + " -> " + destino + " já existe.");
+                return; 
             }
         }
         String nome = origem.getNome() + " -> " + destino.getNome();
         Aresta aresta = new Aresta(origem, destino, nome);
         arestas.add(aresta);
-        System.out.println("Aresta " + origem + " -> " + destino + " inserida.");
+
+        if (origem.getArestas() != null) {
+            origem.getArestas().add(aresta);
+        } else {
+            origem.setArestas(new ArrayList<>());
+            origem.getArestas().add(aresta);
+        }
+        int i = vertices.indexOf(origem);
+        int j = vertices.indexOf(destino);
+        if (i != -1 && j != -1) {
+            matrizAdj[i][j] = 1; 
+            matrizAdj[j][i] = 1; 
+        } else {
+            System.out.println("Erro: vértices não encontrados na lista.");
+        }
+        System.out.println("Aresta " + origem.getNome() + " -> " + destino.getNome() + " inserida.");
     }
+    
 
     public Grafo removerAresta(Vertice origem, Vertice destino) {
         Aresta aresta = new Aresta(origem, destino);
@@ -87,9 +104,6 @@ public class Grafo {
             int i = vertices.indexOf(origem);
             int j = vertices.indexOf(destino);
             matrizAdj[i][j] = 0;
-            if (!direcionado) {
-                matrizAdj[j][i] = 0;
-            }
             System.out.println("Aresta " + origem.getNome() + " -> " + destino.getNome() + " removida.");
         } else {
             System.out.println("Aresta " + origem.getNome() + " -> " + destino.getNome() + " não encontrada.");
@@ -100,10 +114,30 @@ public class Grafo {
     public List<Vertice> getVertices() {
         return vertices;
     }
-
+    private List <Aresta> getArestasdoVertices(Vertice vertice) {
+        return vertice.getArestas();
+    }
+    public String getvertices() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < arestas.size(); i++) {
+            sb.append("Índice ").append(i).append(": ").append(vertices.get(i).toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    public void setPonderado(){
+        this.ponderado = true;
+    }
     public List<Aresta> getArestas() {
         return arestas;
     }
+    public String getarestas() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < arestas.size(); i++) {
+            sb.append("Índice ").append(i).append(": ").append(arestas.get(i).toString()).append("\n");
+        }
+        return sb.toString();
+    }
+    
 
     public void criarGrafoComMatriz() {
         tamanho = matrizAdj.length;
@@ -168,15 +202,12 @@ public class Grafo {
     public  int[][] getMatrizAdj(){
         return matrizAdj;
     }
+    
     public void getVizinhos(int v) {
+        System.out.println("==================");
+        Vertice x = vertices.get(v);
 
-        List<Integer> vizinhos = new ArrayList<>();
-        for (int i = 0; i < this.matrizAdj.length; i++) {
-            if (this.matrizAdj[v][i] == 1) {
-                vizinhos.add(i);
-            }
-        }
+        System.out.println(getArestasdoVertices(x));
 
-        System.out.println("Vizinhos do vértice " + v + ": " + vizinhos);
     }
 }

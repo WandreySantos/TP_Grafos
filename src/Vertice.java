@@ -3,13 +3,19 @@ import java.util.List;
 public class Vertice {
     private String nome;
     private List<Aresta> arestas;
-
+    
     public Vertice(String nome) {
         this.nome = nome;
     }
 
+    public void setArestas(List<Aresta> arestas) {
+        this.arestas = arestas;
+    }
     public String getNome() {
         return nome;
+    }
+    public List<Aresta> getArestas() {
+        return arestas;
     }
 
     @Override
