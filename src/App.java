@@ -1,6 +1,25 @@
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
+
+/*
+ Criação de um grafo com X vértices (o número de vértices deve ser inserido pelo usuário).
+Inserção e remoção de arestas. X
+Ponderação e rotulação de vértices. X
+Ponderação e rotulação de arestas. X
+--------------------------------
+Adjacência entre vértices. ?
+Vizinhança do vértice. ?
+Grau do vértice. ?
+Grafo completo. ?
+Grafo regular.  ?
+Grafo conexo. ?
+Grafo acíclico. ?
+Grafo euleriano. ?
+Busca em profundidade. ?
+Busca em largura. ?
+Calcular a menor distância de uma origem para todos os outros vértices (Usar Dijkstra). ?
+Calcular a menor distância de todos para todos (Usar Floyd-Warshall). ?
+ */
 
 public class App {
     public static void menu() {
@@ -28,8 +47,8 @@ public class App {
 
     public static void functions(Grafo grafo) {
 
-        Funções funcoes = new Funções();
         Scanner scan = new Scanner(System.in);
+        Funções funcoes = new Funções();
 
         boolean opção = true;
         while (opção) {
@@ -48,20 +67,16 @@ public class App {
                     }
                     break;
                 case 2: // Vizinhança
-                    System.out.println(grafo.getvertices());
                     System.out.print("Informe o índice do vértice: ");
                     int v = scan.nextInt();
-                    System.out.println("Vizinhos:");
                     grafo.getVizinhos(v);
                     break;
 
                 case 3: // Grau
-                    System.out.print("Informe o índice do vértice: ");
-                    int index = scan.nextInt();
-                    System.out.println("\n" + grafo.getvertices());
-                    Vertice vertice = grafo.getVertices().get(index);
-                    int grau = grafo.getGrau(vertice);
-                    System.out.println("Grau do vértice " + vertice + ": " + grau);
+                    // System.out.print("Informe o índice do vértice: ");
+                    // int vertice = scan.nextInt();
+                    // int grau = grafo.getGrau(vertice);
+                    // System.out.println("Grau do vértice " + vertice + ": " + grau);
                     break;
 
                 case 4: // Grafo completo
@@ -116,63 +131,59 @@ public class App {
     }
 
     public static void algoritmos(Grafo grafo) {
-
-        Scanner scann = new Scanner(System.in);
         Funções funcoes = new Funções();
-
+        Scanner scan = new Scanner(System.in);
         System.out.println("\n=== Algoritmos em Grafos ===");
         System.out.println("1 - Busca em profundidade (DFS)");
         System.out.println("2 - Busca em largura (BFS)");
         System.out.println("3 - Menor distância de uma origem para todos os outros vértices (Dijkstra)");
         System.out.println("4 - Menor distância entre todos os vértices (Floyd-Warshall)");
+        System.out.println("5 - Verificar se o grafo é ou não euleriano");
         System.out.println("0 - Voltar ao menu principal");
         System.out.print("Escolha uma opção: ");
-        int opção = scann.nextInt();
+        int opção = scan.nextInt();
 
         switch (opção) {
             case 1: // Busca em profundidade (DFS)
                 System.out.print("Informe o índice do vértice de origem: ");
-                int origemDFS = scann.nextInt();
+                int origemDFS = scan.nextInt();
                 System.out.println("Busca em profundidade a partir do vértice " + origemDFS + ":");
-                grafo.buscaProfundidade(origemDFS);
+                // grafo.buscaProfundidade(origemDFS);
                 break;
 
             case 2: // Busca em largura (BFS)
                 System.out.print("Informe o índice do vértice de origem: ");
-                int origemBFS = scann.nextInt();
+                int origemBFS = scan.nextInt();
                 System.out.println("Busca em largura a partir do vértice " + origemBFS + ":");
-                // funcoes.buscaLargura();
+                funcoes.bfs(grafo.getMatrizAdj(), origemBFS, grafo.getVertices());
+                System.out.println();
                 break;
 
-            /*
-             * oq era pra ser passado?nao consegui entender
-             */
             case 3: // Dijkstra
                 System.out.print("Informe o índice do vértice de origem: ");
-                System.out.println(grafo.getvertices()); // Exibe a lista de vértices para o usuário, se necessário.
-
-                // Lê o índice do vértice de origem4
-
-                int indiceOrigem = scann.nextInt();
-                Vertice origem = grafo.getVertices().get(indiceOrigem); // Obtém o vértice pelo índice
-
-                System.out.println("Menores distâncias a partir do vértice " + origem.getNome() + " usando Dijkstra:");
-
-                // Executa o algoritmo de Dijkstra
-                Map<Vertice, Integer> distancias = funcoes.dijkstra(grafo.getVertices(), origem);
-
-                // Exibe as menores distâncias
-                for (Map.Entry<Vertice, Integer> entrada : distancias.entrySet()) {
-                    System.out.println("Para " + entrada.getKey().getNome() + ": " + entrada.getValue());
-                }
+                int origemDijkstra = scan.nextInt();
+                System.out.println("Menores distâncias a partir do vértice " + origemDijkstra + " usando Dijkstra:");
+                funcoes.dijkstra(grafo.getMatrizAdj(), origemDijkstra, grafo.getVertices());
+                System.out.println();
                 break;
 
             case 4: // Floyd-Warshall
-                System.out.println("Menores distâncias entre todos os vértices usando Floyd-Warshall:");
-                // funcoes.floydWarshall();
+                funcoes.floydWarshall(grafo.getMatrizAdj(), grafo.getVertices());
+                System.out.println();
                 break;
 
-            case 0: // Voltar ao menu principal
+            case 5: // Euleriano
+                System.out.print("Verificando se o grafo é euleriano: ");
+                boolean code = funcoes.isEuleriano(grafo.getMatrizAdj(), grafo.getVertices());
+                if (code) {
+                    System.out.println("O grafo é euleriano!");
+                } else {
+                    System.out.println("O grafo não é euleriano!");
+                }
+                System.out.println();
+                break;
+
+            case 0: // Voltar ao menu principal9
                 System.out.println("Voltando ao menu principal...");
                 break;
 
