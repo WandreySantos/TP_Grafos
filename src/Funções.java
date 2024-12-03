@@ -1,12 +1,8 @@
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Set;
 
 public class Funções {
 
@@ -39,12 +35,14 @@ public class Funções {
                 }
             }
         }
+
         recStack[vertice] = false;
         return false;
     }
 
     public boolean isCompleto(int[][] matrizAdj) {
         int n = matrizAdj.length;
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (i != j && matrizAdj[i][j] == 0) {
@@ -104,117 +102,170 @@ public class Funções {
         return true;
     }
 
-    public Map<Vertice, Integer> dijkstra(List<Vertice> vertices, Vertice origem) {
-        Map<Vertice, Integer> distancias = new HashMap<>();
-        PriorityQueue<Vertice> fila = new PriorityQueue<>(Comparator.comparingInt(distancias::get));
+    public void dijkstra(int[][] matrizAdj, int verticeInicial, List<Vertice> vertices) {
 
-        // Inicialização: distância infinita para todos os vértices, 0 para a origem
-        for (Vertice v : vertices) {
-            distancias.put(v, Integer.MAX_VALUE);
-        }
-        distancias.put(origem, 0);
-        fila.add(origem);
+        int tamanho = vertices.size();
+        int[] distancias = new int[tamanho];
+        boolean[] visitados = new boolean[tamanho];
+        int[] predecessores = new int[tamanho];
+        Arrays.fill(distancias, Integer.MAX_VALUE);
+        Arrays.fill(predecessores, -1);
+        distancias[verticeInicial] = 0;
 
-        // Algoritmo principal
-        while (!fila.isEmpty()) {
-            Vertice atual = fila.poll();
+        for (int i = 0; i < tamanho - 1; i++) {
+            int u = encontrarMenorDistancia(distancias, visitados, tamanho);
+            visitados[u] = true;
 
-            for (Aresta aresta : atual.getArestas()) {
-                Vertice vizinho = aresta.getDestino();
-                int novaDistancia = distancias.get(atual) + aresta.getPeso();
-
-                if (novaDistancia < distancias.get(vizinho)) {
-                    distancias.put(vizinho, novaDistancia);
-                    fila.add(vizinho);
+            for (int v = 0; v < tamanho; v++) {
+                if (!visitados[v] && matrizAdj[u][v] != 0 && distancias[u] + matrizAdj[u][v] < distancias[v]) {
+                    distancias[v] = distancias[u] + matrizAdj[u][v];
+                    predecessores[v] = u;
                 }
             }
         }
-        return distancias;
+
+        System.out.println("Menores distâncias:");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print(vertices.get(i).getNome() + ": " + distancias[i]);
+            System.out.print(" (Caminho: ");
+            printCaminho(predecessores, i, vertices);
+            System.out.println(")");
+        }
     }
 
-    private int minDist(int[] dist, boolean[] visitados) {
-        int min = Integer.MAX_VALUE, minIndex = -1;
+    private void printCaminho(int[] predecessores, int destino, List<Vertice> vertices) {
+        if (predecessores[destino] == -1) {
+            System.out.print(vertices.get(destino).getNome());
+            return;
+        }
+        printCaminho(predecessores, predecessores[destino], vertices);
+        System.out.print(" -> " + vertices.get(destino).getNome());
+    }
 
-        for (int v = 0; v < dist.length; v++) {
-            if (!visitados[v] && dist[v] < min) {
-                min = dist[v];
-                minIndex = v;
+    private int encontrarMenorDistancia(int[] distancias, boolean[] visitados, int tamanho) {
+        int min = Integer.MAX_VALUE, indiceMin = -1;
+
+        for (int i = 0; i < tamanho; i++) {
+            if (!visitados[i] && distancias[i] < min) {
+                min = distancias[i];
+                indiceMin = i;
             }
         }
-        return minIndex;
+        return indiceMin;
     }
 
-    public int[][] floydWarshall(int[][] matrizAdj) {
-        int n = matrizAdj.length;
-        int[][] dist = new int[n][n];
+    public void floydWarshall(int[][] matrizAdj, List<Vertice> vertices) {
+        int tamanho = vertices.size();
+        int[][] distancias = new int[tamanho][tamanho];
+        int[][] predecessores = new int[tamanho][tamanho];
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
                 if (i == j) {
-                    dist[i][j] = 0;
+                    distancias[i][j] = 0;
                 } else if (matrizAdj[i][j] != 0) {
-                    dist[i][j] = matrizAdj[i][j];
+                    distancias[i][j] = matrizAdj[i][j];
+                    predecessores[i][j] = i;
                 } else {
-                    dist[i][j] = Integer.MAX_VALUE;
+                    distancias[i][j] = Integer.MAX_VALUE;
+                    predecessores[i][j] = -1;
                 }
             }
         }
 
-        for (int k = 0; k < n; k++) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (dist[i][k] != Integer.MAX_VALUE && dist[k][j] != Integer.MAX_VALUE &&
-                            dist[i][k] + dist[k][j] < dist[i][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
+        for (int k = 0; k < tamanho; k++) {
+            for (int i = 0; i < tamanho; i++) {
+                for (int j = 0; j < tamanho; j++) {
+                    if (distancias[i][k] != Integer.MAX_VALUE && distancias[k][j] != Integer.MAX_VALUE
+                            && distancias[i][k] + distancias[k][j] < distancias[i][j]) {
+                        distancias[i][j] = distancias[i][k] + distancias[k][j];
+                        predecessores[i][j] = predecessores[k][j];
                     }
                 }
             }
         }
-        return dist;
-    }
 
-    public void bfs(int[][] matrizAdj, int origem) {
-        int n = matrizAdj.length;
-        boolean[] visitados = new boolean[n];
-        Queue<Integer> fila = new LinkedList<>();
+        System.out.println("Menores distâncias entre todos os pares de vértices:");
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (distancias[i][j] == Integer.MAX_VALUE) {
+                    System.out.print("INF ");
+                } else {
+                    System.out.print(distancias[i][j] + " ");
+                }
+            }
+            System.out.println();
+        }
 
-        visitados[origem] = true;
-        fila.add(origem);
-
-        while (!fila.isEmpty()) {
-            int v = fila.poll();
-            System.out.print(v + " ");
-
-            for (int i = 0; i < n; i++) {
-                if (matrizAdj[v][i] != 0 && !visitados[i]) {
-                    visitados[i] = true;
-                    fila.add(i);
+        System.out.println("Caminhos entre os vértices:");
+        for (int i = 0; i < tamanho; i++) {
+            for (int j = 0; j < tamanho; j++) {
+                if (i != j && distancias[i][j] != Integer.MAX_VALUE) {
+                    System.out.print(vertices.get(i).getNome() + " -> " + vertices.get(j).getNome() + ": ");
+                    printCaminho(predecessores, i, j, vertices);
+                    System.out.println();
                 }
             }
         }
     }
 
-    public boolean isEuleriano(int[][] matrizAdj) {
-        if (!isConexo(matrizAdj)) {
-            return false;
+    private void printCaminho(int[][] predecessores, int origem, int destino, List<Vertice> vertices) {
+        if (predecessores[origem][destino] == -1) {
+            System.out.print("Sem caminho");
+            return;
+        }
+        if (origem != destino) {
+            printCaminho(predecessores, origem, predecessores[origem][destino], vertices);
+        }
+        System.out.print(vertices.get(destino).getNome() + " ");
+    }
+
+    public void bfs(int[][] matrizAdj, int verticeInicial, List<Vertice> vertices) {
+
+        int tamanhoAtual = vertices.size();
+        boolean[] visitados = new boolean[tamanhoAtual];
+        List<String> resultado = new ArrayList<>();
+
+        Queue<Integer> fila = new LinkedList<>();
+        fila.add(verticeInicial);
+        visitados[verticeInicial] = true;
+
+        while (!fila.isEmpty()) {
+            int verticeAtual = fila.poll();
+            resultado.add(vertices.get(verticeAtual).getNome()); // Adiciona o nome do vértice
+
+            for (int i = 0; i < tamanhoAtual; i++) {
+                if (matrizAdj[verticeAtual][i] == 1 && !visitados[i]) {
+                    fila.add(i);
+                    visitados[i] = true;
+                }
+            }
         }
 
-        int n = matrizAdj.length;
-        int verticesImpar = 0;
+        System.out.println("BFS: " + resultado);
+    }
 
-        for (int i = 0; i < n; i++) {
+    public boolean isEuleriano(int[][] matrizAdj, List<Vertice> vertices) {
+        // Verifica se o grafo é conexo
+        Funções funcoes = new Funções();
+        if (!funcoes.isConexo(matrizAdj)) {
+            return false; // Se não é conexo, não pode ser euleriano
+        }
+
+        // Verifica se todos os vértices têm grau par
+        for (int i = 0; i < vertices.size(); i++) {
             int grau = 0;
-            for (int j = 0; j < n; j++) {
-                if (matrizAdj[i][j] != 0) {
+            for (int j = 0; j < matrizAdj[i].length; j++) {
+                if (matrizAdj[i][j] == 1) {
                     grau++;
                 }
             }
-            if (grau % 2 != 0) {
-                verticesImpar++;
+            if (grau % 2 != 0) { // Se o grau for ímpar
+                return false;
             }
         }
 
-        return verticesImpar == 0 || verticesImpar == 2;
+        return true; // Se é conexo e todos os vértices têm grau par, é euleriano
     }
 
 }
