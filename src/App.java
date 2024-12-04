@@ -28,7 +28,6 @@ public class App {
         System.out.println("2 - Ponderar arestas ");
         System.out.println("3 - Verificações simples");
         System.out.println("4 - Aplicar algoritmos");
-        System.out.println("5 - Lista de incidencia");
         System.out.println("9 - Ver grafo");
         System.out.println("0 - Sair");
         System.out.println("==================");
@@ -278,9 +277,6 @@ public class App {
                     break;
                 case 4:
                     algoritmos(grafo);
-                    break;
-                case 5:
-                    System.out.println(grafo.ListaAdj());
                     break;
                 case 9:
                     System.out.println(grafo.toString());

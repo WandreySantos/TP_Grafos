@@ -104,6 +104,7 @@ public class Grafo {
             int i = vertices.indexOf(origem);
             int j = vertices.indexOf(destino);
             matrizAdj[i][j] = 0;
+            matrizAdj[j][i] = 0;
             System.out.println("Aresta " + origem.getNome() + " -> " + destino.getNome() + " removida.");
         } else {
             System.out.println("Aresta " + origem.getNome() + " -> " + destino.getNome() + " não encontrada.");
@@ -257,7 +258,7 @@ public class Grafo {
         }
     }
 
-    public String ListaAdj(){
+    public String ListaAdj() {
         StringBuilder sb = new StringBuilder();
         sb.append("Lista de Adjacência:\n");
 
@@ -270,6 +271,6 @@ public class Grafo {
             }
             sb.append("\n");
         }
-    return sb.toString();
+        return sb.toString();
     }
 }
