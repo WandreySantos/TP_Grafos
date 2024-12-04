@@ -198,7 +198,7 @@ public class App {
         System.out.println("1- Adicionar\n2- Remover");
         int op = scan.nextInt();
         if (op == 1) {
-            System.out.println("Selecione 2 vértices para adicionar uma aresta:");
+            System.out.println("Selecione 2 vértices para adicionar uma aresta(ex: 0 1):");
             System.out.println("Vértices disponíveis: ");
             for (int i = 0; i < grafo.getVertices().size(); i++) {
                 System.out.println(i + ": " + grafo.getVertices().get(i).getNome());
