@@ -256,4 +256,20 @@ public class Grafo {
             }
         }
     }
+
+    public String ListaAdj(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Lista de Adjacência:\n");
+
+        for (int i = 0; i < tamanho; i++) {
+            sb.append("v").append(i + 1).append(": ");
+            for (int j = 0; j < tamanho; j++) {
+                if (matrizAdj[i][j] == 1) {
+                    sb.append("v").append(j + 1).append(" ");
+                }
+            }
+            sb.append("\n");
+        }
+    return sb.toString();
+    }
 }
