@@ -67,16 +67,17 @@ public class App {
                     }
                     break;
                 case 2: // Vizinhança
+                    System.out.println(grafo.getvertices());
                     System.out.print("Informe o índice do vértice: ");
                     int v = scan.nextInt();
+                    System.out.println("Vizinhos:");
                     grafo.getVizinhos(v);
                     break;
 
                 case 3: // Grau
-                    // System.out.print("Informe o índice do vértice: ");
-                    // int vertice = scan.nextInt();
-                    // int grau = grafo.getGrau(vertice);
-                    // System.out.println("Grau do vértice " + vertice + ": " + grau);
+                    System.out.print("Informe o índice do vértice: ");
+                    int vertice = scan.nextInt();
+                    grafo.getGrau(vertice);
                     break;
 
                 case 4: // Grafo completo
@@ -112,11 +113,11 @@ public class App {
                     break;
 
                 case 8: // Grafo euleriano
-                    // if (grafo.isEuleriano()) {
-                    // System.out.println("O grafo é euleriano.");
-                    // } else {
-                    // System.out.println("O grafo não é euleriano.");
-                    // }
+                    if (funcoes.isEuleriano(grafo.getMatrizAdj(), grafo.getVertices())) {
+                        System.out.println("O grafo é euleriano.");
+                    } else {
+                        System.out.println("O grafo não é euleriano.");
+                    }
                     break;
                 case 0: // Voltar
                     System.out.println("Voltando ao menu principal...");
@@ -148,7 +149,7 @@ public class App {
                 System.out.print("Informe o índice do vértice de origem: ");
                 int origemDFS = scan.nextInt();
                 System.out.println("Busca em profundidade a partir do vértice " + origemDFS + ":");
-                // grafo.buscaProfundidade(origemDFS);
+                grafo.buscaProfundidade(origemDFS);
                 break;
 
             case 2: // Busca em largura (BFS)

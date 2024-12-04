@@ -232,7 +232,7 @@ public class Funções {
 
         while (!fila.isEmpty()) {
             int verticeAtual = fila.poll();
-            resultado.add(vertices.get(verticeAtual).getNome()); // Adiciona o nome do vértice
+            resultado.add(vertices.get(verticeAtual).getNome());
 
             for (int i = 0; i < tamanhoAtual; i++) {
                 if (matrizAdj[verticeAtual][i] == 1 && !visitados[i]) {
@@ -246,13 +246,12 @@ public class Funções {
     }
 
     public boolean isEuleriano(int[][] matrizAdj, List<Vertice> vertices) {
-        // Verifica se o grafo é conexo
+
         Funções funcoes = new Funções();
         if (!funcoes.isConexo(matrizAdj)) {
-            return false; // Se não é conexo, não pode ser euleriano
+            return false;
         }
 
-        // Verifica se todos os vértices têm grau par
         for (int i = 0; i < vertices.size(); i++) {
             int grau = 0;
             for (int j = 0; j < matrizAdj[i].length; j++) {
@@ -260,12 +259,12 @@ public class Funções {
                     grau++;
                 }
             }
-            if (grau % 2 != 0) { // Se o grau for ímpar
+            if (grau % 2 != 0) {
                 return false;
             }
         }
 
-        return true; // Se é conexo e todos os vértices têm grau par, é euleriano
+        return true;
     }
 
 }

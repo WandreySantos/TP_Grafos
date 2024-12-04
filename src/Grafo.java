@@ -208,14 +208,36 @@ public class Grafo {
         return matrizAdj;
     }
 
-    public int getGrau(Vertice vertice) {
-        return vertice.getArestas().size();
+    public void getGrau(int v) {
+        System.out.println("==================");
+
+        if (this.matrizAdj == null) {
+            System.out.println("Erro: Matriz de adjacência não inicializada.");
+            return;
+        }
+
+        if (v < 0 || v >= this.matrizAdj.length) {
+            System.out.println("Erro: Índice de vértice inválido.");
+            return;
+        }
+
+        int grau = 0;
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+            if (this.matrizAdj[v][i] == 1) {
+                grau++;
+            }
+        }
+        System.out.println("Grau do vértice " + v + ": " + grau);
     }
 
     public void getVizinhos(int v) {
-        System.out.println("==================");
-        Vertice x = vertices.get(v);
-        System.out.println(getArestasdoVertices(x));
+        List<Integer> vizinhos = new ArrayList<>();
+        for (int i = 0; i < this.matrizAdj.length; i++) {
+            if (this.matrizAdj[v][i] == 1) {
+                vizinhos.add(i);
+            }
+        }
+        System.out.println("Vizinhos do vértice " + v + ": " + vizinhos);
     }
 
     public void buscaProfundidade(int v) {
